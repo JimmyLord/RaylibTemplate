@@ -12,13 +12,13 @@ void updateDrawFrame();
 static const int c_screenWidth = 1280;
 static const int c_screenHeight = 720;
 
-Game* g_game = nullptr;
+BallGame* g_game = nullptr;
 
 int main()
 {
     InitWindow( c_screenWidth, c_screenHeight, "Demo Window" );
 
-    g_game = new Game();
+    g_game = new BallGame();
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop( updateDrawFrame, 0, 1 );

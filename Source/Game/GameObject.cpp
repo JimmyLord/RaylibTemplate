@@ -1,7 +1,7 @@
 ﻿#include "GameObject.h"
 
-GameObject::GameObject(Game* pGame)
-    : m_pGame( pGame )
+GameObject::GameObject(BallGame* game)
+    : Game( game )
 {
 }
 

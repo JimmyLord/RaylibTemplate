@@ -9,13 +9,13 @@
 #include "Helpers/InputTypes.h"
 #include "Helpers/Vector.h"
 
-class Ball;
+class BallObject;
 
-class Game
+class BallGame
 {
 public:
-    Game();
-    virtual ~Game();
+    BallGame();
+    virtual ~BallGame();
 
     void reset();
     void update(float deltaTime);
@@ -25,12 +25,12 @@ public:
     void onKey(int keyCode, KeyState keyState);
 
     // Getters.
-    Ball* getBall() { return m_pBall; }
+    //Ball* getBall() { return Ball; }
 
     Texture2D getTexture(const char* textureName) const;
 
 private:
-    std::unordered_map<std::string, Texture2D> m_textures;
+    std::unordered_map<std::string, Texture2D> Textures;
 
-    Ball* m_pBall = nullptr;
+    BallObject* Ball;
 };

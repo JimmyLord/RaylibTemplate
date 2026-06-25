@@ -5,14 +5,14 @@
 #include "GameObject.h"
 #include "Helpers/InputTypes.h"
 
-class Sprite;
+class Sprite2D;
 
-class Ball : public GameObject
+class BallObject : public GameObject
 {
 private:
 public:
-    Ball(Game* pGame);
-    virtual ~Ball();
+    BallObject(BallGame* game);
+    virtual ~BallObject();
 
     virtual void update(float deltaTime) override;
     virtual void draw() override;
@@ -21,7 +21,7 @@ public:
     void onKey(int keyCode, KeyState keyState);
 
 private:
-    Sprite* m_pSprite;
-    vec2 m_controls = 0;
-    vec2 m_velocity = 0;
+    Sprite2D* Sprite;
+    vec2 Controls = 0;
+    vec2 Velocity = 0;
 };

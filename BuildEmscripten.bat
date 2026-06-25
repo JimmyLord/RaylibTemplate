@@ -1,10 +1,9 @@
-rem Ninja must be installed and the folder added to your path.
-rem https://ninja-build.org/
+cd Emscripten
+call install.bat
+cd ..
 
-path=%path%;c:\Apps\ninja
-
-set EMSCRIPTEN=c:\emsdk
-
+path=%path%;%~dp0Emscripten\ninja
+set EMSCRIPTEN=%~dp0Emscripten\emsdk
 call %EMSCRIPTEN%\emsdk_env.bat
 
 echo --------------------------------------------------------------------------

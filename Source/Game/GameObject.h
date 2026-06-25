@@ -3,12 +3,12 @@
 #include "raylib.h"
 #include "Helpers/Vector.h"
 
-class Game;
+class BallGame;
 
 class GameObject
 {
 public:
-    GameObject(Game* pGame);
+    GameObject(BallGame* game);
     virtual ~GameObject();
 
     virtual void reset();
@@ -16,29 +16,29 @@ public:
     virtual void draw();
 
     // Getters.
-    bool isActive()       { return m_active; }
-    vec2 getPosition()    { return m_position; }
-    float getAngle()      { return m_angle; }
-    vec2 getScale()       { return m_scale; }
-    float getRadius()     { return m_radius; }
-    Color getColor()      { return m_color; }
+    bool isActive()       { return Active; }
+    vec2 getPosition()    { return Position; }
+    float getAngle()      { return Angle; }
+    vec2 getScale()       { return Scale; }
+    float getRadius()     { return Radius; }
+    Color getColor()      { return ObjectColor; }
 
     // Setters.
-    virtual void setActive(bool active) { m_active = active; }
-    void setPosition(vec2 pos)    { m_position = pos; }
-    void setAngle(float angle)    { m_angle = angle; }
-    void setScale(vec2 scale)     { m_scale = scale; }
-    void setRadius(float radius)  { m_radius = radius; }
-    void setColor(Color color)    { m_color = color; }
+    virtual void setActive(bool active) { Active = active; }
+    void setPosition(vec2 pos)    { Position = pos; }
+    void setAngle(float angle)    { Angle = angle; }
+    void setScale(vec2 scale)     { Scale = scale; }
+    void setRadius(float radius)  { Radius = radius; }
+    void setColor(Color color)    { ObjectColor = color; }
 
 protected:
-    Game* m_pGame = nullptr;
+    BallGame* Game = nullptr;
 
-    bool m_active = false;
+    bool Active = false;
 
-    vec2 m_position = 0;
-    float m_angle = 0;
-    vec2 m_scale = 1;
-    float m_radius = 0;
-    Color m_color = WHITE;
+    vec2 Position = 0;
+    float Angle = 0;
+    vec2 Scale = 1;
+    float Radius = 0;
+    Color ObjectColor = WHITE;
 };

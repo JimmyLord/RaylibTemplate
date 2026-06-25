@@ -4,56 +4,59 @@
 
 #include "Game.h"
 #include "Helpers/MathFuncs.h"
-#include "Helpers/Sprite.h"
-#include "Ball.h"
+#include "Helpers/Sprite2D.h"
+#include "BallObject.h"
 
-Game::Game()
+BallGame::BallGame()
 {
     std::random_device rd;
     srand( rd() );
 
-    m_textures["SoccerBall"] = LoadTexture( "Data/Textures/SoccerBall.png" );
+    Textures["SoccerBall"] = LoadTexture( "Data/Textures/SoccerBall.png" );
 
     // Create a ball.
-    m_pBall = new Ball( this );
+    Ball = new BallObject(this);
 
     reset();
 }
 
-Game::~Game()
+BallGame::~BallGame()
 {
-    delete m_pBall;
+    delete Ball;
 
-    for( auto texturePair : m_textures )
+    for( auto texturePair : Textures )
     {
         UnloadTexture( texturePair.second );
     }
 }
 
-void Game::reset()
+void BallGame::reset()
 {
-    m_pBall->reset();
-    m_pBall->setActive( true );
-    m_pBall->setPosition( { GetScreenWidth()/2.0f, GetScreenHeight()/2.0f } );
+    Ball->reset();
+    Ball->setActive( true );
+    Ball->setPosition( { GetScreenWidth()/2.0f + rand() % 100 - 50, GetScreenHeight()/2.0f + rand() % 20 - 10 } );
 }
 
-void Game::update(float deltaTime)
+void BallGame::update(float deltaTime)
 {
-    m_pBall->update( deltaTime );
+    Ball->update( deltaTime );
 }
 
-void Game::draw()
+void BallGame::draw()
 {
     ClearBackground( DARKBLUE );
 
-    char buffer[64];
-    snprintf( buffer, sizeof(buffer), "Ball Pos: %0.0f, %0.0f", m_pBall->getPosition().x, m_pBall->getPosition().y );
-    DrawText( buffer, 600, 5, 20, LIGHTGRAY );
+    //char buffer[64];
+    //snprintf( buffer, sizeof(buffer), "Ball Pos: %0.0f, %0.0f", m_pBall->getPosition().x, m_pBall->getPosition().y );
+    //DrawText( buffer, 600, 5, 20, LIGHTGRAY );
 
-    m_pBall->draw();
+    if( Ball->isActive() )
+    {
+        Ball->draw();
+    }
 }
 
-void Game::onKey(int keyCode, KeyState keyState)
+void BallGame::onKey(int keyCode, KeyState keyState)
 {
     if( keyCode == 'R' && keyState == KeyState::Pressed )
     {
@@ -61,13 +64,16 @@ void Game::onKey(int keyCode, KeyState keyState)
     }
 
     // Send key events to the ball.
-    m_pBall->onKey( keyCode, keyState );
+    if( Ball->isActive() )
+    {
+        Ball->onKey( keyCode, keyState );
+    }
 }
 
-Texture2D Game::getTexture(const char* textureName) const
+Texture2D BallGame::getTexture(const char* textureName) const
 {
-    auto it = m_textures.find( textureName );
-    if( it != m_textures.end() )
+    auto it = Textures.find( textureName );
+    if( it != Textures.end() )
     {
         return it->second;
     }
